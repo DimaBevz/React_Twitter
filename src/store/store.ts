@@ -23,7 +23,7 @@ const sagaMiddleWare = createSagaMiddleware();
 export interface RootState {
   tweets: TweetsState;
   tags: TagsState;
-  tweetData: TweetDataState;
+  tweet: TweetDataState;
 };
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleWare)));
