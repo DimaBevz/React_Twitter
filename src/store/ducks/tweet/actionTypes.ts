@@ -1,6 +1,5 @@
 import { Action } from "redux";
-import { Tweet } from "../tweets/contracts/state";
-import { LoadingState } from "./contracts/state";
+import { LoadingState, TweetDataState } from "./contracts/state";
 
 // экшн который будет прикручивать все твиты в items
 export enum TweetDataActionsType {
@@ -12,7 +11,13 @@ export enum TweetDataActionsType {
 export interface SetTweetDataActionInterface
   extends Action<TweetDataActionsType> {
   type: TweetDataActionsType.SET_TWEET_DATA;
-  payload: Tweet;
+  payload: TweetDataState['data'];
+}
+
+export interface FetchTweetDataActionInterface
+  extends Action<TweetDataActionsType> {
+  type: TweetDataActionsType.FETCH_TWEET_DATA;
+  payload: string;
 }
 
 export interface SetTweetDataLoadingStateActionInterface
@@ -21,8 +26,4 @@ export interface SetTweetDataLoadingStateActionInterface
   payload: LoadingState;
 }
 
-export interface FetchTweetDataActionInterface
-  extends Action<TweetDataActionsType> {
-  type: TweetDataActionsType.FETCH_TWEET_DATA;
-  payload: string;
-}
+

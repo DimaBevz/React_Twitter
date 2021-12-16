@@ -10,7 +10,7 @@ const initialTweetDataState:TweetDataState = {
 };
 
 // описываем  редьюсер
-export const TweetDataReducer = produce((draft: Draft<TweetDataState>, action: TweetDataActions) => {
+export const tweetDataReducer = produce((draft: Draft<TweetDataState>, action: TweetDataActions) => {
 
     switch (action.type) {
         case TweetDataActionsType.SET_TWEET_DATA:

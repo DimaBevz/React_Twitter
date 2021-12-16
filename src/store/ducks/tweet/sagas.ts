@@ -7,7 +7,6 @@ import { Tweet } from '../tweets/contracts/state';
 
 
 export function* fetchTweetDataRequest({payload: tweetId}: FetchTweetDataActionInterface) {
-    alert(tweetId)
     try {
         const data: Tweet[] = yield call(TweetsApi.fetchTweetData, tweetId);  
         yield put(setTweetData(data[0])); 
