@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { useHomeStyles } from "../../pages/Home/theme";
+import { useDispatch } from 'react-redux';
+import { fetchAddTweet } from './../../store/ducks/tweets/actionCreators';
 
 
 interface AddTweetFormProps {
@@ -25,6 +27,7 @@ const AddTweetForm: React.FC<AddTweetFormProps> = ({
   classes,
   maxRows
 }: AddTweetFormProps): React.ReactElement => {
+  const dispatch = useDispatch();
   const [text, setText] = React.useState<string>("");
   const textLimitPercent = Math.round((text.length / 280) * 100); // переменная для прогресса круга заполнения текстового поля
   const textCount = MAX_LENGHT - text.length;
@@ -38,6 +41,7 @@ const AddTweetForm: React.FC<AddTweetFormProps> = ({
   };
 
   const handleClickAddTweet = (): void => {
+    dispatch(fetchAddTweet(text));
     setText("");
   };
 

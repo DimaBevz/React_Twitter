@@ -29,6 +29,10 @@ export const tweetsReducer = produce((draft: Draft<TweetsState>, action: TweetsA
 // когда мы пытаемся получить список твитов соответственно мы получаем новые твиты, а потом сделать ещё проверку на статус
             draft.loadingState = action.payload; 
             break;
+
+        case TweetsActionsType.ADD_TWEET:
+            draft.items.push(action.payload);
+            break;
     
         default:
             break;
