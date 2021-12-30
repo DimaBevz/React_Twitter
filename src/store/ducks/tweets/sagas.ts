@@ -2,12 +2,12 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import {
   setTweets,
   setTweetsLoadingState,
-  TweetsActionsType,
-  FetchAddTweetActionInterface,
   addTweet,
+  setAddFormState,
 } from "./actionCreators";
 import { TweetsApi } from "./../../../services/api/tweetsApi";
-import { LoadingState } from "./contracts/state";
+import { AddFormState, LoadingState } from "./contracts/state";
+import { FetchAddTweetActionInterface, TweetsActionsType } from "./contracts/actionTypes";
 
 export function* fetchTweetsRequest(): any {
   try {
@@ -35,7 +35,7 @@ export function* fetchAddTweetRequest({ payload }: FetchAddTweetActionInterface)
     const item = yield call(TweetsApi.addTweet, data);
     yield put(addTweet(item));
   } catch (error) {
-    yield put(setTweetsLoadingState(LoadingState.ERROR));
+    yield put(setAddFormState(AddFormState.ERROR));
 
     // yield put - то же самое что и диспатч в редаксе
   }

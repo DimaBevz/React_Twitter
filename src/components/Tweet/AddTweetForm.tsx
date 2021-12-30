@@ -12,8 +12,11 @@ import {
 } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { useHomeStyles } from "../../pages/Home/theme";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddTweet } from './../../store/ducks/tweets/actionCreators';
+import { selectAddFormState } from './../../store/ducks/tweets/selectors';
+import { AddFormState } from "../../store/ducks/tweets/contracts/state";
+import { Alert } from "@mui/material";
 
 
 interface AddTweetFormProps {
@@ -28,6 +31,7 @@ const AddTweetForm: React.FC<AddTweetFormProps> = ({
   maxRows
 }: AddTweetFormProps): React.ReactElement => {
   const dispatch = useDispatch();
+  const addFormState = useSelector(selectAddFormState);
   const [text, setText] = React.useState<string>("");
   const textLimitPercent = Math.round((text.length / 280) * 100); // переменная для прогресса круга заполнения текстового поля
   const textCount = MAX_LENGHT - text.length;
@@ -97,14 +101,19 @@ const AddTweetForm: React.FC<AddTweetFormProps> = ({
           )}
           <Button
             onClick={handleClickAddTweet}
-            disabled={textLimitPercent >= 100}
+            disabled={addFormState === AddFormState.LOADING || !text || textLimitPercent >= 100}
             color="primary"
             variant="contained"
           >
-            Твитнуть
+            {addFormState === AddFormState.LOADING ? <CircularProgress color="inherit" size={16}/> : 'Твитнуть'}
           </Button>
         </div>
       </div>
+      {
+        addFormState === AddFormState.ERROR && (
+          <Alert severity="error">Ошибка при добавлении твита <span role="img">😔</span></Alert>
+        )
+      }
     </div>
   );
 };
